@@ -1,0 +1,169 @@
+@charset "UTF-8";
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+:root { /* Criando variáveis na raiz do HTML, para que fiquem disponíveis para TODOS os elementos que existem no html */
+    --card-title-border-color: #746615;
+    --card-color-primary: #F7DD43;  
+    --card-bg-color: #1d1c19;
+    --bg: url(./assets/bg-yellow.svg);
+}
+
+body.blue{
+    --card-title-border-color: #338af3;
+    --card-color-primary: #338af3;
+    --card-bg-color: #202024;
+    --bg: url(./assets/bg-blue.svg);
+}
+
+body.green{
+    --card-title-border-color: #047c3f;
+    --card-color-primary: #047c3f;
+    --card-bg-color: #1A1F1B;
+    --bg: url(./assets/bg-green.svg);
+}
+
+ul{
+    list-style: none;
+}
+
+body {
+    background: #121214;
+    background-image: var(--bg);
+    background-position: center; /*AQUI*/
+    background-repeat: no-repeat; /*AQUI*/
+    background-size: cover; /*AQUI*/
+}
+
+body *{
+    font-family: 'Roboto', sans-serif;
+}
+
+#app {
+    width: fit-content;
+    margin: auto;
+    padding-top: 52px; /*AQUI*/
+
+}
+
+header {
+    margin-bottom: 63px;
+    text-align: center;
+}
+
+#cards {
+    display: flex;
+    flex-direction: column;
+    gap: 32px;
+}
+
+.card {
+    padding: 32px 23px;
+    text-align: center;
+
+    background: var(--card-bg-color);
+    border-bottom: 2px solid var(--card-color-primary);
+    border-radius: 6px;
+    
+}
+
+.card h2 {
+    display: flex;
+    gap: 16px;
+    justify-content: center;
+    align-items: center;
+
+    padding: 8px 16px;
+    border: 1px solid var(--card-title-border-color);
+    border-radius: 6px;
+
+    width: fit-content;
+    margin-inline: auto;
+    margin-bottom: 53px;
+    color: #F7DD43;
+}
+
+.card h2 span {
+    color: #E1E1E6;
+    font-size: 14px;
+    text-transform: uppercase;
+}
+
+.card ul{
+    display: flex;
+    flex-direction: column;
+    gap: 24px;
+    width: 270px;
+}
+
+.card ul li {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    
+}
+
+.card ul li + li { /* "li + li" = 'li' que contenha um 'li' anterior*/
+    padding-top: 24px;
+    border-top: 1px solid #323238;
+}
+
+.card ul li strong {
+    font-weight: 900;
+    font-size: 36px;
+    line-height: 125%;
+    color: #E1E1E6;
+}
+
+.card h2:hover,
+.card ul li strong:hover,
+.card ul li img:hover {
+    transform: scale(1.1); /* aumentando o tamanho do elemento*/
+}
+
+.card h2,
+.card ul li strong,
+.card ul li img {
+    transition: transform 0.3s; /* suavizando o tempo de animação */
+}
+
+.card {
+    opacity: 0; /* o card começa opaco ao carregar o site e depois recebe uma animação */
+    animation: appear .2s forwards; /* 'forwards' faz terminar a appear nas condições de 100% da animação (ou seja, opacidade = 1) */
+}
+
+/* 
+Jogaremos as css abaixo para JavaScrip para o caso de ter muitos cards para animar: 
+
+.card:nth-child(2) {                      // o segundo elemento filho da class card
+    animation-delay: .2s;
+}
+
+.card:nth-child(3) {                         // o terceiro elemento filho da class card 
+    animation-delay: .4s;
+} 
+*/
+
+/*Criando animações abaixo: */
+@keyframes appear{
+    0% {
+        transform: translateY(-50px);
+        opacity: 0;
+    } 
+    100% {
+        opacity: 1;
+    }
+}
+/* Regras de Responsividade: */
+@media (min-width: 700px) {
+    #cards {
+        max-width: 670px; /* A <div id="cards"> poderá ter no máximo 670px */ /* Descobrimos este valor somando a largura de 2 cartões mais o espaço entre eles */
+        flex-direction: row;
+        flex-wrap: wrap; /* Quando a <div id="cards"> atingir width=670px, haverá quebra de linha para o próximo conteúdo  */
+    }
+}
+/* Tudo que estiver entre chaves acima será aplicado quando 'width > 400px' */
